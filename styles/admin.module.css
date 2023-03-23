@@ -1,0 +1,21 @@
+
+.sidebtn{
+    min-width: 100%;
+    padding: 10px;
+    text-align: left;
+    border-radius: 10px;
+    transition-duration: 0.5s;
+    display: flex;
+    align-items: center;
+    font-size: larger;
+    overflow: hidden;
+    flex-shrink: unset;
+}
+.sidebtn:hover{
+    background-color: black;
+    color: white;
+}
+.sidebtn:active{
+    background-color: black;
+}
+
