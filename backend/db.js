@@ -1,12 +1,11 @@
 import mongoose from 'mongoose'
+mongoose.set('strictQuery', true);
 
-// const mongoUrl = process.env.MONGO_URI;
-// const mongoUrl = ;
 
 
 const connectToMongo =async ()=>{
     try{
-        mongoose.connect("mongodb://localhost:27017/shopify",()=>{
+        mongoose.connect(process.env.MONGO_URI,()=>{
             console.log("successfully connected to database");
         })
     }catch(error){
