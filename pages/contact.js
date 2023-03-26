@@ -5,12 +5,12 @@ function contact() {
 
   useEffect(() => {
     const successCallback = (position) => {
-      console.log(position.coords.longitude,position.coords.latitude);
+      //console.log(position.coords.longitude,position.coords.latitude);
       _longlet({longitude:position.coords.longitude,latitude:position.coords.latitude})
     };
     
     const errorCallback = (error) => {
-      console.log(error);
+    //  console.log(error);
     };
     
     navigator.geolocation.getCurrentPosition(successCallback, errorCallback);

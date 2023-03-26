@@ -1,18 +1,38 @@
-import React from "react";
+import React,{useState,useEffect} from "react";
 import ProductModel from "@/backend/models/Productmodel";
 import db from "@/backend/db";
-import router from 'next/router'
+import {useRouter} from 'next/router'
 import {motion} from 'framer-motion'
+import Loading from "./loading"
 
 function cloths(props) {
+  const router = useRouter();
+  const [loading,_loading] = useState(false);
   const list = JSON.parse(props.data);
+
   const redirect = (id)=>{
     router.push(`/product/${id}`);
   }
+
+  useEffect(()=>{
+    
+
+        router.events.on('routeChangeStart', ()=>_loading(true));
+        router.events.on('routeChangeComplete', ()=>_loading(false));
+        router.events.on('routeChangeError', ()=>_loading(false));
+
+        return () => {
+            router.events.off('routeChangeStart')
+            router.events.off('routeChangeComplete')
+            router.events.off('routeChangeError')
+        }
+  },[])
+  if(loading)
+    return <Loading/>;
   return (
     <motion.div initial={{x:-1000, opacity: 0 }} animate={{x:0, opacity: 1 }} className="text-gray-600 body-font">
   <div className="container px-5 py-4 mx-auto">
-      <div className="m-5 font-bold text-3xl">cloths</div>
+      <div className="m-5 font-bold text-3xl">Cloths</div>
     <div className="flex flex-wrap -m-4">
     {list.map((item, ind) => {
             return (

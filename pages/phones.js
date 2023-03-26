@@ -1,14 +1,32 @@
-import React from "react";
+import React,{useEffect,useState} from "react";
 import ProductModel from "@/backend/models/Productmodel";
 import db from "@/backend/db";
-import router from 'next/router'
+import {useRouter} from 'next/router'
 import { motion } from "framer-motion";
+import Loading from "./loading"
 
 function phones(props) {
+  const router = useRouter();
+  const [loading,_loading] = useState(false);
   const list = JSON.parse(props.data);
+
   const redirect = (id)=>{
     router.push(`/product/${id}`);
   }
+
+  useEffect(()=>{
+        router.events.on('routeChangeStart', ()=>_loading(true));
+        router.events.on('routeChangeComplete', ()=>_loading(false));
+        router.events.on('routeChangeError', ()=>_loading(false));
+
+        return () => {
+            router.events.off('routeChangeStart')
+            router.events.off('routeChangeComplete')
+            router.events.off('routeChangeError')
+        }
+  },[])
+  if(loading)
+    return <Loading/>;
 
   return (
     <motion.div initial={{x:-1000, opacity: 0 }} animate={{x:0, opacity: 1 }} className="text-gray-600 body-font">
@@ -43,7 +61,7 @@ function phones(props) {
   );
 }
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
   db();
   let data = await ProductModel.find({ category: "Phone" });
   data = JSON.stringify(data);
