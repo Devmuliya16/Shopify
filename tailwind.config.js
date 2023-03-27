@@ -19,12 +19,12 @@ module.exports = {
           "from":{height:"0%"},
           "to":{height:"280%"}
         }
+      },
+      animation:{
+        redheight: 'reduceheight 0.5s ',
+        dropdown: 'dropdown 0.8s '
       }
     },
-    animation:{
-      redheight: 'reduceheight 0.5s ',
-      dropdown: 'dropdown 0.8s '
-    }
   },
   plugins: [],
 }

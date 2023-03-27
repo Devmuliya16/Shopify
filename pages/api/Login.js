@@ -27,7 +27,6 @@ const Login = async (req, res) => {
       } else throw new Error("invalid craditiionals");
     }
   } catch (e) {
-    console.log(e.message)
     res.status(400).send({ message: e.message });
   }
 };

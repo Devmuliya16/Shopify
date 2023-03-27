@@ -16,8 +16,22 @@ function slug(props) {
 
 
   const addtoCart = ()=>{
+    if(!localStorage.getItem("Cart")){
+      toast.warn('You are not Logged in', {
+        position: "top-center",
+        autoClose: 1000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+      return;
+    }
+
     if(product.inStock){
-      let cart = JSON.parse(localStorage.getItem("Cart")) || [];
+      let cart = JSON.parse(localStorage.getItem("Cart"));
       product.qty = 1;
       cart = [...cart,product]
       localStorage.setItem('Cart',JSON.stringify(cart));

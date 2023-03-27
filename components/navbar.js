@@ -3,7 +3,7 @@ import Link from "next/link";
 import styles from "@/styles/Home.module.css";
 import Cart from "./cart/cart.js";
 import { useRouter } from "next/router";
-import Product from "./Admin/Product.js";
+import Product from "./product.js";
 import { motion } from "framer-motion";
 
 import { FaStaylinked ,FaCartArrowDown} from "react-icons/fa";
@@ -46,7 +46,7 @@ function navbar() {
   };
   const logout = () => {
     localStorage.removeItem("Auth");
-    localStorage.setItem("Cart","[]");
+    // localStorage.setItem("Cart","[]");
     router.push("/");
     window.location.reload();
   };

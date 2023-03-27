@@ -4,6 +4,7 @@ import { FaStaylinked } from "react-icons/fa";
 
 
 
+
 function signup(props) {
   const [formdata, _formdata] = useState({ name: "", email: "", password: "" });
   const change = (e) => {
@@ -13,6 +14,7 @@ function signup(props) {
   const router = useRouter();
 
   const Sup = async (data) => {
+    props.setloading(true);
     const response = await fetch("/api/Signup", {
       method: "POST",
       headers: {
@@ -23,10 +25,17 @@ function signup(props) {
     const dt = await response.json();
     if(response.status===200) {
       localStorage.setItem('Auth',JSON.stringify(dt));
-      router.push('/')
+      localStorage.setItem('Cart',"[]");
+      router.push('/');
     }
-  };
+    else{
+      localStorage.removeItem('Auth')
+      localStorage.removeItem('Cart');
+      window.alert(dt.message);
+    }
+    props.setloading(false);
 
+  };
   return (
     <div className="flex flex-col w-2/6 p-4 my-36 m-auto">
       <FaStaylinked className="text-[50px] m-auto" />

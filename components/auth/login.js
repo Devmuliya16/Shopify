@@ -14,6 +14,7 @@ function login(props) {
 
   const router = useRouter();
   const Sup = async (data) => {
+    props.setloading(true);
     const response = await fetch("/api/Login", {
       method: "POST",
       headers: {
@@ -24,10 +25,14 @@ function login(props) {
     const dt = await response.json();
     if(response.status ===200){
       localStorage.setItem('Auth',JSON.stringify(dt));
-      router.push('/')
+      localStorage.setItem('Cart',"[]");
+      router.push('/');
     }else{
       localStorage.removeItem('Auth')
+      localStorage.removeItem('Cart');
+      window.alert(dt.message);
     }
+    props.setloading(false);
   };
   
 
